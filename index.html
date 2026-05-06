@@ -43,7 +43,7 @@ body::before{
 }
 
 /* ════════════════════════════════
-   MAGIC WAND CURSOR — INK SPLAT
+   MAGIC WAND CURSOR
 ════════════════════════════════ */
 #wand{position:fixed;top:0;left:0;pointer-events:none;z-index:99999;will-change:transform;}
 .wand-svg{transform:translate(-2px,-2px) rotate(-38deg);filter:drop-shadow(0 0 6px var(--acid));}
@@ -111,7 +111,7 @@ nav{
 .nav-cv:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,240,58,.3);}
 
 /* ════════════════════════════════
-   HERO — full bleed
+   HERO
 ════════════════════════════════ */
 #hero{
   position:relative;
@@ -122,10 +122,8 @@ nav{
   overflow:hidden;
 }
 
-/* Live canvas for data-nodes */
 #hero-canvas{position:absolute;inset:0;z-index:0;}
 
-/* Big oversized bg letters */
 .hero-bg-text{
   position:absolute;top:50%;left:-3%;
   transform:translateY(-50%);
@@ -228,7 +226,7 @@ nav{
 @keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 
 /* ════════════════════════════════
-   INK BLOB DIVIDER SVG
+   INK BLOB DIVIDER
 ════════════════════════════════ */
 .ink-blob-divider{
   width:100%;overflow:hidden;line-height:0;display:block;
@@ -237,7 +235,7 @@ nav{
 .ink-blob-divider svg{display:block;width:100%;height:auto;}
 
 /* ════════════════════════════════
-   STATS — WHITE SECTION
+   STATS
 ════════════════════════════════ */
 .stats-section{
   background:var(--white);color:var(--black);
@@ -270,7 +268,7 @@ nav{
 .stat-lbl{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);}
 
 /* ════════════════════════════════
-   ABOUT — BLACK, then white inverted
+   ABOUT
 ════════════════════════════════ */
 .about-section{
   background:var(--black);
@@ -295,7 +293,6 @@ nav{
 }
 .sec-title-xl em{color:var(--acid);font-style:italic;font-weight:300;}
 
-/* Big pulled quote */
 .about-quote{
   font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;
   font-size:clamp(1.4rem,2.5vw,2rem);
@@ -309,7 +306,6 @@ nav{
   color:rgba(245,243,238,.55);margin-bottom:1rem;
 }
 
-/* Info table */
 .info-table{border-top:1px solid var(--border-dark);}
 .info-row{
   display:flex;justify-content:space-between;align-items:start;
@@ -320,7 +316,7 @@ nav{
 .ir-v a{color:var(--acid);text-decoration:none;}
 
 /* ════════════════════════════════
-   SKILLS — WHITE INVERTED
+   SKILLS
 ════════════════════════════════ */
 .skills-section{
   background:var(--white2);color:var(--black);
@@ -341,7 +337,6 @@ nav{
 }
 .sec-title-xl-dark em{color:var(--black);font-style:italic;font-weight:300;opacity:.4;}
 
-/* Skills grid — torn card look */
 .skills-mosaic{
   display:grid;
   grid-template-columns:repeat(12,1fr);
@@ -378,125 +373,295 @@ nav{
 }
 
 /* ════════════════════════════════
-   PROJECTS — BLACK
+   PROJECTS — REDESIGNED
 ════════════════════════════════ */
 .projects-section{
-  background:var(--black);padding:8rem 4%;
+  background:var(--black);
+  padding:8rem 4%;
   position:relative;z-index:2;
+  overflow:hidden;
 }
 .projects-inner{max-width:1200px;margin:0 auto;}
 
-/* Featured — asymmetric split */
-.pf{
-  display:grid;grid-template-columns:55% 45%;
-  border:1px solid var(--border-dark);
-  margin-bottom:1.4rem;
+/* Section header row */
+.proj-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:5rem;gap:2rem;flex-wrap:wrap;
+}
+.proj-count-label{
+  font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);border:1px solid var(--border-dark);
+  padding:.35rem .9rem;align-self:flex-start;margin-top:1rem;
+}
+
+/* ── FEATURED BENTO GRID ── */
+.proj-bento{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-template-rows:auto;
+  gap:1px;
+  background:var(--border-dark);
+  margin-bottom:1px;
+}
+
+/* Each bento cell */
+.pb{
+  background:var(--black2);
   position:relative;overflow:hidden;
-  transition:border-color .3s;min-height:320px;
+  transition:background .4s;
 }
-.pf.flip{grid-template-columns:45% 55%;}
-.pf:hover{border-color:rgba(200,240,58,.25);}
+.pb:hover{background:#141414;}
 
-.pf-art{
-  position:relative;background:var(--black2);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
+/* Acid top-bar on hover */
+.pb::after{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--acid);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .45s cubic-bezier(.23,1,.32,1);
 }
+.pb:hover::after{transform:scaleX(1);}
 
-/* Animated ink circle inside project art */
-.pf-ink-circle{
-  position:absolute;
-  width:280px;height:280px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(200,240,58,.07) 0%,transparent 70%);
-  animation:inkPulse 4s ease-in-out infinite;
-}
-@keyframes inkPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.15);opacity:1}}
+/* Column spans */
+.pb.c7{grid-column:span 7;}
+.pb.c5{grid-column:span 5;}
+.pb.c4{grid-column:span 4;}
+.pb.c8{grid-column:span 8;}
+.pb.c6{grid-column:span 6;}
+.pb.c12{grid-column:span 12;}
 
-.pf-art-emoji{font-size:5rem;position:relative;z-index:1;filter:drop-shadow(0 0 20px rgba(200,240,58,.2));transition:transform .4s cubic-bezier(.23,1,.32,1);}
-.pf:hover .pf-art-emoji{transform:scale(1.15) rotate(-8deg);}
-
-.pf-art-num{
-  position:absolute;bottom:-1rem;right:-1rem;
-  font-family:'Bebas Neue',sans-serif;font-size:9rem;
-  color:rgba(245,243,238,.025);line-height:1;pointer-events:none;user-select:none;
-}
-
-.pf-body{
-  padding:2.5rem 2.8rem;
+/* HERO CARD — large */
+.pb-hero{
+  padding:3rem 3.2rem;
   display:flex;flex-direction:column;justify-content:space-between;
-  border-left:1px solid var(--border-dark);
+  min-height:380px;
 }
-.pf.flip .pf-body{border-left:none;border-right:1px solid var(--border-dark);}
 
-.pf-tag{
+/* Visual panel — right side of hero */
+.pb-visual{
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  min-height:380px;
+  background:var(--black);
+}
+
+/* Giant emoji art */
+.pb-emoji-art{
+  position:relative;z-index:2;
+  font-size:7rem;
+  filter:drop-shadow(0 0 30px rgba(200,240,58,.15));
+  transition:transform .5s cubic-bezier(.23,1,.32,1),filter .5s;
+  display:block;
+  text-align:center;
+}
+.pb:hover .pb-emoji-art{
+  transform:scale(1.12) rotate(-6deg);
+  filter:drop-shadow(0 0 50px rgba(200,240,58,.35));
+}
+
+/* Animated background rings */
+.pb-rings{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.pb-ring{
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(200,240,58,.06);
+  animation:ringPulse 4s ease-in-out infinite;
+}
+.pb-ring:nth-child(1){width:120px;height:120px;animation-delay:0s;}
+.pb-ring:nth-child(2){width:200px;height:200px;animation-delay:.6s;border-color:rgba(200,240,58,.04);}
+.pb-ring:nth-child(3){width:290px;height:290px;animation-delay:1.2s;border-color:rgba(200,240,58,.025);}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.06);opacity:1}}
+
+/* Ghost number watermark */
+.pb-ghost{
+  position:absolute;bottom:-1.5rem;right:-1rem;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:11rem;line-height:1;
+  color:rgba(200,240,58,.03);
+  pointer-events:none;user-select:none;
+  transition:color .4s;
+}
+.pb:hover .pb-ghost{color:rgba(200,240,58,.06);}
+
+/* Card content styles */
+.pb-index{
+  font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(200,240,58,.45);
+  margin-bottom:1rem;
+  display:flex;align-items:center;gap:.7rem;
+}
+.pb-index::before{content:'';display:block;width:20px;height:1px;background:rgba(200,240,58,.4);}
+
+.pb-tag{
   display:inline-block;
-  font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--acid);border:1px solid rgba(200,240,58,.3);
-  padding:.2rem .6rem;margin-bottom:.9rem;width:fit-content;
+  font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--acid);border:1px solid rgba(200,240,58,.25);
+  padding:.2rem .55rem;margin-bottom:.8rem;
 }
 
-.pf-title{
+.pb-title{
   font-family:'Cormorant Garamond',serif;font-weight:700;
-  font-size:clamp(1.3rem,2.2vw,1.9rem);color:var(--white);
-  line-height:1.15;margin-bottom:.9rem;
+  font-size:clamp(1.2rem,2vw,1.75rem);
+  color:var(--white);line-height:1.15;
+  margin-bottom:.9rem;
+  transition:color .3s;
+}
+.pb:hover .pb-title{color:var(--acid);}
+
+.pb-desc{
+  font-size:.72rem;line-height:2;
+  color:rgba(245,243,238,.45);
+  flex:1;margin-bottom:1.4rem;
 }
 
-.pf-desc{
-  font-size:.75rem;line-height:1.95;
-  color:rgba(245,243,238,.5);margin-bottom:1.4rem;flex:1;
+.pb-chips{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:1.2rem;}
+.pb-chip{
+  font-size:.52rem;letter-spacing:.06em;
+  background:rgba(200,240,58,.06);
+  border:1px solid rgba(200,240,58,.12);
+  color:rgba(200,240,58,.75);
+  padding:.18rem .5rem;
+  transition:background .2s,border-color .2s;
 }
+.pb:hover .pb-chip{background:rgba(200,240,58,.1);border-color:rgba(200,240,58,.2);}
 
-.pf-stack{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.4rem;}
-.pf-stack span{
-  font-size:.56rem;letter-spacing:.06em;
-  background:rgba(200,240,58,.08);border:1px solid rgba(200,240,58,.15);
-  color:rgba(200,240,58,.8);padding:.18rem .5rem;
-}
-
-.pf-link{
-  display:inline-flex;align-items:center;gap:.4rem;
-  font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+.pb-link{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--acid);text-decoration:none;
   position:relative;width:fit-content;
+  transition:gap .25s;
 }
-.pf-link::after{
-  content:'';position:absolute;bottom:-2px;left:0;right:0;
+.pb-link::after{
+  content:'';position:absolute;bottom:-3px;left:0;right:0;
   height:1px;background:var(--acid);
-  transform:scaleX(0);transition:transform .25s;transform-origin:left;
+  transform:scaleX(0);transition:transform .3s;transform-origin:left;
 }
-.pf-link:hover::after{transform:scaleX(1);}
+.pb-link:hover{gap:.9rem;}
+.pb-link:hover::after{transform:scaleX(1);}
 
-/* Mini project grid */
-.mini-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.4rem;
+/* COMPACT CARD */
+.pb-compact{
+  padding:2rem 2.2rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:220px;
 }
 
-.pm{
+/* TALL CARD */
+.pb-tall{
+  padding:2.2rem 2.4rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:340px;
+}
+
+/* ── PROJECTS TICKER (horizontal strip) ── */
+.proj-ticker-wrap{
+  overflow:hidden;
+  border-top:1px solid var(--border-dark);
+  border-bottom:1px solid var(--border-dark);
+  padding:.7rem 0;
+  margin:1px 0;
   background:var(--black2);
-  border:1px solid var(--border-dark);
-  padding:1.6rem 1.8rem;
-  position:relative;overflow:hidden;
-  transition:transform .3s cubic-bezier(.23,1,.32,1),border-color .3s;
 }
-.pm::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,var(--acid),transparent);
-  transform:scaleX(0);transition:transform .35s;transform-origin:left;
+.proj-ticker{
+  display:flex;gap:0;
+  animation:ticker 22s linear infinite;
+  white-space:nowrap;
 }
-.pm:hover{transform:translateY(-5px);border-color:rgba(200,240,58,.2);}
-.pm:hover::after{transform:scaleX(1);}
+.proj-ticker-item{
+  display:inline-flex;align-items:center;gap:1.2rem;
+  padding:0 2.5rem;
+  font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);
+  flex-shrink:0;
+}
+.proj-ticker-item::before{
+  content:'◆';color:var(--acid);font-size:.4rem;
+}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-.pm-n{font-size:.52rem;letter-spacing:.14em;color:rgba(200,240,58,.5);margin-bottom:.5rem;}
-.pm-t{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1rem;color:var(--white);margin-bottom:.5rem;line-height:1.3;}
-.pm-d{font-size:.7rem;line-height:1.85;color:rgba(245,243,238,.4);margin-bottom:.9rem;}
-.pm-s{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.8rem;}
-.pm-s span{font-size:.52rem;border:1px solid var(--border-dark);color:var(--muted);padding:.12rem .4rem;}
-.pm-l{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);text-decoration:none;transition:opacity .2s;}
-.pm-l:hover{opacity:.7;}
+/* ── SMALL PROJECTS GRID ── */
+.proj-sm-header{
+  margin:4rem 0 2rem;
+  display:flex;align-items:center;gap:1.5rem;
+}
+.proj-sm-header-line{flex:1;height:1px;background:var(--border-dark);}
+.proj-sm-header-txt{
+  font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+  white-space:nowrap;
+}
+
+.proj-sm-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--border-dark);
+}
+
+.psm{
+  background:var(--black2);
+  padding:1.8rem 2rem;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+  display:flex;flex-direction:column;
+  min-height:220px;
+}
+.psm:hover{background:#141414;}
+
+/* left accent bar */
+.psm::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:var(--acid);
+  transform:scaleY(0);transform-origin:bottom;
+  transition:transform .4s cubic-bezier(.23,1,.32,1);
+}
+.psm:hover::before{transform:scaleY(1);}
+
+.psm-idx{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3.5rem;line-height:1;
+  color:rgba(200,240,58,.08);
+  margin-bottom:.5rem;
+  transition:color .3s;
+}
+.psm:hover .psm-idx{color:rgba(200,240,58,.15);}
+
+.psm-title{
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:1rem;color:var(--white);
+  line-height:1.3;margin-bottom:.6rem;
+  transition:color .3s;
+}
+.psm:hover .psm-title{color:var(--acid);}
+
+.psm-desc{
+  font-size:.67rem;line-height:1.9;
+  color:rgba(245,243,238,.38);
+  flex:1;margin-bottom:1rem;
+}
+
+.psm-chips{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.9rem;}
+.psm-chip{
+  font-size:.5rem;letter-spacing:.05em;
+  border:1px solid rgba(245,243,238,.1);
+  color:var(--muted);padding:.12rem .42rem;
+}
+
+.psm-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.57rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(200,240,58,.6);text-decoration:none;
+  transition:color .2s,gap .25s;
+  margin-top:auto;
+}
+.psm-link:hover{color:var(--acid);gap:.7rem;}
 
 /* ════════════════════════════════
-   EDUCATION — WHITE
+   EDUCATION
 ════════════════════════════════ */
 .edu-section{
   background:var(--white);color:var(--black);
@@ -535,7 +700,7 @@ nav{
 }
 
 /* ════════════════════════════════
-   CERTIFICATES — BLACK
+   CERTIFICATES
 ════════════════════════════════ */
 .cert-section{
   background:var(--black);padding:8rem 4%;
@@ -586,7 +751,7 @@ nav{
 .cert-sm-d{font-size:.57rem;color:var(--muted);margin-top:.1rem;}
 
 /* ════════════════════════════════
-   CONTACT — WHITE
+   CONTACT
 ════════════════════════════════ */
 .contact-section{
   background:var(--white);color:var(--black);
@@ -641,7 +806,6 @@ nav{
 }
 .btn-outline-dark:hover{border-color:var(--black);color:var(--black);transform:translateY(-2px);}
 
-/* Contact links right col */
 .contact-links-col{display:flex;flex-direction:column;justify-content:center;gap:.8rem;}
 
 .cl-item{
@@ -689,9 +853,7 @@ footer{
 ════════════════════════════════ */
 @media(max-width:960px){
   .about-inner,.contact-inner{grid-template-columns:1fr;gap:3rem;}
-  .mini-grid,.cert-sm-grid{grid-template-columns:1fr 1fr;}
-  .pf,.pf.flip{grid-template-columns:1fr;}
-  .pf-art{height:200px;}
+  .cert-sm-grid{grid-template-columns:1fr 1fr;}
   .stats-inner{grid-template-columns:1fr 1fr;}
   .stat-col:nth-child(2){border-right:none;}
   .skills-mosaic .sk.c3,.sk.c4,.sk.c5,.sk.c6,.sk.c7{grid-column:span 6;}
@@ -699,9 +861,11 @@ footer{
   .nav-links{display:none;}
   .hero-row{flex-direction:column;align-items:flex-start;}
   .edu-card{grid-template-columns:1fr;gap:1rem;}
+  .pb.c7,.pb.c5,.pb.c4,.pb.c8,.pb.c6{grid-column:span 12;}
+  .proj-sm-grid{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:600px){
-  .mini-grid,.cert-sm-grid,.cert-top-grid{grid-template-columns:1fr;}
+  .cert-sm-grid,.cert-top-grid,.proj-sm-grid{grid-template-columns:1fr;}
   .stats-inner{grid-template-columns:1fr 1fr;}
   .skills-mosaic .sk{grid-column:span 12!important;}
 }
@@ -719,15 +883,11 @@ footer{
       </linearGradient>
       <filter id="wf"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     </defs>
-    <!-- shaft -->
     <line x1="6" y1="28" x2="23" y2="11" stroke="url(#wg1)" stroke-width="2.8" stroke-linecap="round"/>
-    <!-- grip rings -->
     <line x1="9" y1="25" x2="12" y2="22" stroke="rgba(200,240,58,.4)" stroke-width="1.5" stroke-linecap="round"/>
     <line x1="7" y1="27" x2="10" y2="24" stroke="rgba(200,240,58,.25)" stroke-width="1.2" stroke-linecap="round"/>
-    <!-- star tip -->
     <path d="M25 9 L26.5 6.5 L28 9 L31 9.5 L28.8 11.5 L29.3 14.5 L26.5 13 L23.7 14.5 L24.2 11.5 L22 9.5 Z" fill="#c8f03a" filter="url(#wf)"/>
     <circle cx="23" cy="11" r="1.8" fill="white" opacity=".85"/>
-    <!-- floating sparkles -->
     <circle cx="19" cy="5" r="1.5" fill="#c8f03a" opacity=".7"/>
     <circle cx="30" cy="18" r="1" fill="white" opacity=".5"/>
     <circle cx="15" cy="3" r=".8" fill="#c8f03a" opacity=".5"/>
@@ -830,7 +990,7 @@ footer{
 
 <!-- ════ ABOUT ════ -->
 <section id="about" class="about-section">
-  <div class="about-inner" style="max-width:1200px;margin:0 auto;">
+  <div class="about-inner">
     <div class="sr">
       <div class="sec-tag">About Me</div>
       <h2 class="sec-title-xl">The person<br>behind the<br><em>data.</em></h2>
@@ -841,9 +1001,9 @@ footer{
     <div class="sr d2">
       <div class="info-table">
         <div class="info-row"><span class="ir-k">Location</span><span class="ir-v">Colombo, Sri Lanka</span></div>
-        <div class="info-row"><span class="ir-k">Degree</span><span class="ir-v">BSc Applied Data Science  Communication</span></div>
+        <div class="info-row"><span class="ir-k">Degree</span><span class="ir-v">BSc Applied Data Science Communication</span></div>
         <div class="info-row"><span class="ir-k">University</span><span class="ir-v">Kotelawala Defence University</span></div>
-        <div class="info-row"><span class="ir-k">Focus Areas</span><span class="ir-v">Data Analytics · Business Intelligence </span></div>
+        <div class="info-row"><span class="ir-k">Focus Areas</span><span class="ir-v">Data Analytics · Business Intelligence</span></div>
         <div class="info-row"><span class="ir-k">Status</span><span class="ir-v" style="color:var(--acid);">● Open to Internships</span></div>
         <div class="info-row"><span class="ir-k">Email</span><span class="ir-v"><a href="mailto:chamathsaramarasingha@gmail.com">chamathsaramarasingha@gmail.com</a></span></div>
       </div>
@@ -864,14 +1024,14 @@ footer{
     <div class="sec-tag-dark sr">Skills</div>
     <h2 class="sec-title-xl-dark sr d1">Technical<br><em>Arsenal</em></h2>
     <div class="skills-mosaic sr d2">
-      <div class="sk c4 lime-accent" style="border-top:2px solid var(--acid);">
+      <div class="sk c4" style="border-top:2px solid var(--acid);">
         <div class="sk-label">Programming</div>
         <div class="sk-name">Code</div>
         <div class="sk-tags"><span class="sk-tag">Python</span><span class="sk-tag">SQL/T-SQL</span><span class="sk-tag">R</span></div>
       </div>
       <div class="sk c5">
         <div class="sk-label">Visualisation</div>
-        <div class="sk-name">Power BI </div>
+        <div class="sk-name">Power BI</div>
         <div class="sk-tags"><span class="sk-tag">Data Cleaning</span><span class="sk-tag">Data Modeling</span><span class="sk-tag">Dashboards</span><span class="sk-tag">DAX</span></div>
       </div>
       <div class="sk c3">
@@ -900,180 +1060,233 @@ footer{
   </svg>
 </div>
 
-  <!-- Featured Projects -->
-  <div class="proj-featured">
- 
-    <div class="proj-card reveal">
-      <div class="proj-card-img">
-        <div class="proj-emoji">🤖</div>
-        <div class="proj-overlay"></div>
+<!-- ════ PROJECTS ════ -->
+<section id="projects" class="projects-section">
+  <div class="projects-inner">
+
+    <!-- Header -->
+    <div class="proj-header sr">
+      <div>
+        <div class="sec-tag">Selected Work</div>
+        <h2 class="sec-title-xl" style="margin-bottom:0;">Projects &<br><em>Builds.</em></h2>
       </div>
-      <div class="proj-body">
+      <div class="proj-count-label">13 projects · 2023 – 2025</div>
+    </div>
+
+    <!-- ── BENTO GRID — FEATURED 4 ── -->
+    <div class="proj-bento sr d1">
+
+      <!-- ROW 1: Full-width hero card -->
+      <div class="pb c12 pb-hero">
         <div>
-          <div class="proj-meta-row">
-            <span class="proj-idx">01</span>
-            <span class="proj-tag">AI Agent</span>
-          </div>
-          <div class="proj-title">Autonomous Supplier Intelligence Agent</div>
-          <p class="proj-desc">AI agent that replaces 2–3 weeks of manual supplier due diligence with a 60-second autonomous intelligence report. Searches live web data across four risk dimensions, scores suppliers 0–10, generates PDF reports, and emails procurement managers — with hourly background re-evaluation.</p>
+          <div class="pb-index">01</div>
+          <span class="pb-tag">AI Agent</span>
+          <h3 class="pb-title">Autonomous Supplier Intelligence Agent</h3>
+          <p class="pb-desc">Replaces 2–3 weeks of manual supplier due diligence with a 60-second autonomous report. Searches live web data across four risk dimensions, scores suppliers 0–10, generates PDF reports and emails procurement managers — with hourly background re-evaluation.</p>
         </div>
         <div>
-          <div class="proj-chips">
-            <span>Python</span><span>LangChain</span><span>Groq LLaMA 3</span><span>Tavily API</span><span>Streamlit</span><span>APScheduler</span><span>Gmail SMTP</span>
+          <div class="pb-chips">
+            <span class="pb-chip">Python</span><span class="pb-chip">LangChain</span><span class="pb-chip">Groq LLaMA 3</span><span class="pb-chip">Tavily API</span><span class="pb-chip">Streamlit</span><span class="pb-chip">APScheduler</span><span class="pb-chip">Gmail SMTP</span>
           </div>
-          <a href="https://github.com/CHAMATHSARA-KDU/Supplier-Intelligence-Agent" target="_blank" class="proj-link">View Project →</a>
+          <a href="https://github.com/CHAMATHSARA-KDU/Supplier-Intelligence-Agent" target="_blank" class="pb-link">View on GitHub →</a>
         </div>
+        <div class="pb-ghost">01</div>
       </div>
-    </div>
- 
-    <div class="proj-card reveal">
-      <div class="proj-card-img">
-        <div class="proj-emoji">📄</div>
-        <div class="proj-overlay"></div>
-      </div>
-      <div class="proj-body">
+
+      <!-- ROW 2: Full-width hero card -->
+      <div class="pb c12 pb-hero" style="background:#0d0d0d;">
         <div>
-          <div class="proj-meta-row">
-            <span class="proj-idx">02</span>
-            <span class="proj-tag">NLP · Generative AI</span>
-          </div>
-          <div class="proj-title">AI-Powered Policy Summarizer & Scenario Generator</div>
-          <p class="proj-desc">Uploads any government policy PDF, applies NLP preprocessing (tokenisation, stopword removal, lemmatisation), generates structured summaries, and adapts the policy into scenario-specific drafts for Education, Healthcare, Rural Development, and custom stakeholder groups. Tested on Sri Lanka's National AI Strategy 2028.</p>
+          <div class="pb-index">02</div>
+          <span class="pb-tag">NLP · Generative AI</span>
+          <h3 class="pb-title">AI-Powered Policy Summarizer & Scenario Generator</h3>
+          <p class="pb-desc">Uploads any government policy PDF, applies NLP preprocessing (tokenisation, stopword removal, lemmatisation), generates structured summaries, and adapts policy into scenario-specific drafts for Education, Healthcare, Rural Development, and custom stakeholders. Tested on Sri Lanka's National AI Strategy 2028.</p>
         </div>
         <div>
-          <div class="proj-chips">
-            <span>Python</span><span>Gradio</span><span>Gemini 2.5 Flash</span><span>NLTK</span><span>HuggingFace</span><span>PyMuPDF</span>
+          <div class="pb-chips">
+            <span class="pb-chip">Python</span><span class="pb-chip">Gradio</span><span class="pb-chip">Gemini 2.5 Flash</span><span class="pb-chip">NLTK</span><span class="pb-chip">HuggingFace</span><span class="pb-chip">PyMuPDF</span>
           </div>
-          <a href="https://github.com/CHAMATHSARA-KDU/AI-Powered-Policy-Summarizer-Scenario-Generator" target="_blank" class="proj-link">View Project →</a>
+          <a href="https://github.com/CHAMATHSARA-KDU/AI-Powered-Policy-Summarizer-Scenario-Generator" target="_blank" class="pb-link">View on GitHub →</a>
         </div>
+        <div class="pb-ghost">02</div>
       </div>
-    </div>
- 
-    <div class="proj-card reveal">
-      <div class="proj-card-img">
-        <div class="proj-emoji">📦</div>
-        <div class="proj-overlay"></div>
-      </div>
-      <div class="proj-body">
+
+      <!-- ROW 3: Two tall side-by-side cards -->
+      <div class="pb c6 pb-tall">
         <div>
-          <div class="proj-meta-row">
-            <span class="proj-idx">03</span>
-            <span class="proj-tag">Power BI Dashboard</span>
-          </div>
-          <div class="proj-title">Samsung Supply Chain & Logistics Dashboard</div>
-          <p class="proj-desc">Interactive Power BI dashboard transforming raw supply chain data into KPIs covering revenue & profit trends, inventory turnover, supplier performance, shipment efficiency, and customer purchasing patterns across platforms.</p>
+          <div class="pb-index">03</div>
+          <span class="pb-tag">Power BI Dashboard</span>
+          <h3 class="pb-title">Samsung Supply Chain & Logistics Dashboard</h3>
+          <p class="pb-desc">Interactive Power BI dashboard transforming raw supply chain data into KPIs: revenue & profit trends, inventory turnover, supplier performance, shipment efficiency, and customer purchasing patterns.</p>
         </div>
         <div>
-          <div class="proj-chips">
-            <span>Power BI</span><span>DAX</span><span>Data Modeling</span><span>Data Visualization</span>
+          <div class="pb-chips">
+            <span class="pb-chip">Power BI</span><span class="pb-chip">DAX</span><span class="pb-chip">Data Modeling</span><span class="pb-chip">Data Visualization</span>
           </div>
-          <a href="https://github.com/CHAMATHSARA-KDU/Samsung-Supply-Chain-Logistics-Dashboard" target="_blank" class="proj-link">View Project →</a>
+          <a href="https://github.com/CHAMATHSARA-KDU/Samsung-Supply-Chain-Logistics-Dashboard" target="_blank" class="pb-link">View on GitHub →</a>
         </div>
+        <div class="pb-ghost">03</div>
       </div>
-    </div>
- 
-    <div class="proj-card reveal">
-      <div class="proj-card-img">
-        <div class="proj-emoji">👥</div>
-        <div class="proj-overlay"></div>
-      </div>
-      <div class="proj-body">
+
+      <div class="pb c6 pb-tall" style="background:#0d0d0d;">
         <div>
-          <div class="proj-meta-row">
-            <span class="proj-idx">04</span>
-            <span class="proj-tag">RFM Analysis</span>
-          </div>
-          <div class="proj-title">Customer Demographics & RFM Analysis Dashboard</div>
-          <p class="proj-desc">Segments customers by Recency, Frequency, and Monetary values to identify loyal, new, at-risk, and lost customers. Includes demographic insights, world map of sales by country, and granular transaction-level data for marketing ROI optimization.</p>
+          <div class="pb-index">04</div>
+          <span class="pb-tag">RFM Analysis</span>
+          <h3 class="pb-title">Customer Demographics & RFM Analysis Dashboard</h3>
+          <p class="pb-desc">Segments customers by Recency, Frequency, and Monetary value to identify loyal, new, at-risk, and lost customers. Includes demographic insights, world map of sales by country, and granular transaction-level data for marketing ROI.</p>
         </div>
         <div>
-          <div class="proj-chips">
-            <span>Power BI</span><span>DAX</span><span>RFM Modeling</span><span>Segmentation</span>
+          <div class="pb-chips">
+            <span class="pb-chip">Power BI</span><span class="pb-chip">DAX</span><span class="pb-chip">RFM Modeling</span><span class="pb-chip">Segmentation</span>
           </div>
-          <a href="https://github.com/CHAMATHSARA-KDU/Customer-Demographics-RFM-Segmentation-Dashboard-i" target="_blank" class="proj-link">View Project →</a>
+          <a href="https://github.com/CHAMATHSARA-KDU/Customer-Demographics-RFM-Segmentation-Dashboard-i" target="_blank" class="pb-link">View on GitHub →</a>
         </div>
+        <div class="pb-ghost">04</div>
+      </div>
+
+    </div><!-- /proj-bento -->
+
+    <!-- SCROLLING TICKER -->
+    <div class="proj-ticker-wrap sr d2">
+      <div class="proj-ticker">
+        <!-- duplicated for infinite loop -->
+        <span class="proj-ticker-item">SDG 2 Zero Hunger</span>
+        <span class="proj-ticker-item">Manchester Energy Efficiency</span>
+        <span class="proj-ticker-item">UK Sponsorship Dashboard</span>
+        <span class="proj-ticker-item">Airline Delay Analysis</span>
+        <span class="proj-ticker-item">PLANTRIGHT Crop Recommendation</span>
+        <span class="proj-ticker-item">Yorkshire Crime Trends</span>
+        <span class="proj-ticker-item">London Property Monitor</span>
+        <span class="proj-ticker-item">Canada Work Permit Dashboard</span>
+        <span class="proj-ticker-item">Western Australia Public Health</span>
+        <span class="proj-ticker-item">SDG 2 Zero Hunger</span>
+        <span class="proj-ticker-item">Manchester Energy Efficiency</span>
+        <span class="proj-ticker-item">UK Sponsorship Dashboard</span>
+        <span class="proj-ticker-item">Airline Delay Analysis</span>
+        <span class="proj-ticker-item">PLANTRIGHT Crop Recommendation</span>
+        <span class="proj-ticker-item">Yorkshire Crime Trends</span>
+        <span class="proj-ticker-item">London Property Monitor</span>
+        <span class="proj-ticker-item">Canada Work Permit Dashboard</span>
+        <span class="proj-ticker-item">Western Australia Public Health</span>
       </div>
     </div>
- 
-  </div><!-- /proj-featured -->
- 
-  <!-- Additional Projects — smaller grid -->
-  <div class="proj-grid-sm" style="margin-top:2.5rem;">
- 
-    <div class="proj-sm reveal">
-      <div class="proj-sm-idx">05</div>
-      <div class="proj-sm-title">SDG 2 – Zero Hunger Insights Dashboard</div>
-      <p class="proj-sm-desc">Analyzes UN SDG 2 indicators for global food insecurity, malnutrition, and agricultural productivity using SQL Server and Power BI.</p>
-      <div class="proj-sm-chips"><span>SQL Server</span><span>Power BI</span><span>DAX</span></div>
-      <a href="https://github.com/CHAMATHSARA-KDU/SDG-2-Zero-Hunger-Insights-Dashboard" target="_blank" class="proj-sm-link">View →</a>
+
+    <!-- SMALL PROJECTS HEADER -->
+    <div class="proj-sm-header sr d2">
+      <div class="proj-sm-header-line"></div>
+      <span class="proj-sm-header-txt">More Projects — 05 through 13</span>
+      <div class="proj-sm-header-line"></div>
     </div>
- 
-    <div class="proj-sm reveal d1">
-      <div class="proj-sm-idx">06</div>
-      <div class="proj-sm-title">Manchester Energy Efficiency Insights Dashboard</div>
-      <p class="proj-sm-desc">SQL + Power BI dashboard analyzing EPC data for Manchester (2014–2024) — reveals CO₂ patterns, energy costs, and efficiency trends across property types.</p>
-      <div class="proj-sm-chips"><span>SQL Server</span><span>Power BI</span><span>DAX</span></div>
-      <a href="https://github.com/CHAMATHSARA-KDU/Manchester-Energy-Efficiency-Insights-Dashboard" target="_blank" class="proj-sm-link">View →</a>
+
+    <!-- SMALL PROJECTS 3-COL GRID -->
+    <div class="proj-sm-grid sr d3">
+
+      <div class="psm">
+        <div class="psm-idx">05</div>
+        <div class="psm-title">SDG 2 – Zero Hunger Insights Dashboard</div>
+        <p class="psm-desc">Analyzes UN SDG 2 indicators for global food insecurity, malnutrition, and agricultural productivity using SQL Server and Power BI.</p>
+        <div class="psm-chips"><span class="psm-chip">SQL Server</span><span class="psm-chip">Power BI</span><span class="psm-chip">DAX</span></div>
+        <a href="https://github.com/CHAMATHSARA-KDU/SDG-2-Zero-Hunger-Insights-Dashboard" target="_blank" class="psm-link">View →</a>
+      </div>
+
+      <div class="psm">
+        <div class="psm-idx">06</div>
+        <div class="psm-title">Manchester Energy Efficiency Insights</div>
+        <p class="psm-desc">SQL + Power BI dashboard analyzing EPC data for Manchester (2014–2024) — reveals CO₂ patterns, energy costs, and efficiency trends across property types.</p>
+        <div class="psm-chips"><span class="psm-chip">SQL Server</span><span class="psm-chip">Power BI</span><span class="psm-chip">DAX</span></div>
+        <a href="https://github.com/CHAMATHSARA-KDU/Manchester-Energy-Efficiency-Insights-Dashboard" target="_blank" class="psm-link">View →</a>
+      </div>
+
+      <div class="psm">
+        <div class="psm-idx">07</div>
+        <div class="psm-title">UK Study & Work Sponsorship Dashboard</div>
+        <p class="psm-desc">Evidence-based public sector analytics applying SQL and Power BI to analyze UK sponsorship trends, supporting migration and education policy decisions.</p>
+        <div class="psm-chips"><span class="psm-chip">SQL Server</span><span class="psm-chip">T-SQL</span><span class="psm-chip">Power BI</span></div>
+        <a href="https://github.com/CHAMATHSARA-KDU/-UK-Study-Work-Sponsorship-Dashboard" target="_blank" class="psm-link">View →</a>
+      </div>
+
+      <div class="psm">
+        <div class="psm-idx">08</div>
+        <div class="psm-title">Airline Delay Analysis — Data Mining</div>
+        <p class="psm-desc">K-Means Clustering in R to identify three airline clusters by delay performance using Dec 2019–2020 BTS data, surfacing key delay causes and scheduling patterns.</p>
+        <div class="psm-chips"><span class="psm-chip">R</span><span class="psm-chip">K-Means</span><span class="psm-chip">ggplot2</span></div>
+        <a href="https://github.com/CHAMATHSARA-KDU/AeroAI-Airline-Delay-Analysis-Using-Data-Mining" target="_blank" class="psm-link">View →</a>
+      </div>
+
+      <div class="psm">
+        <div class="psm-idx">09</div>
+        <div class="psm-title">PLANTRIGHT — Crop Recommendation</div>
+        <p class="psm-desc">KNN-based crop recommendation system achieving 96% accuracy using soil nutrients and climate data, supporting sustainable and data-driven farming decisions.</p>
+        <div class="psm-chips"><span class="psm-chip">R</span><span class="psm-chip">KNN</span><span class="psm-chip">caret</span><span class="psm-chip">ggplot2</span></div>
+        <a href="https://github.com/CHAMATHSARA-KDU/Plantright----From-Soil-to-Harvest" target="_blank" class="psm-link">View →</a>
+      </div>
+
+      <div class="psm">
+        <div class="psm-idx">10</div>
+        <div class="psm-title">Yorkshire & Humber Crime Trends</div>
+        <p class="psm-desc">Interactive dashboard visualizing 2022–2023 crime trends across West, South, and North Yorkshire — identifying regional hotspots, crime types, and seasonal patterns.</p>
+        <div class="psm-chips"><span class="psm-chip">SQL Server</span><span class="psm-chip">Power BI</span><span class="psm-chip">Excel</span></div>
+        <a href="https://github.com/CHAMATHSARA-KDU/Yorkshire-and-Humber-Regional-Crime-" target="_blank" class="psm-link">View →</a>
+      </div>
+
+      <div class="psm">
+        <div class="psm-idx">11</div>
+        <div class="psm-title">Greater London Property Price Monitor</div>
+        <p class="psm-desc">Analyzes 2020–2023 London property transaction data — uncovering price peaks, property type trends, seasonal patterns, and geographic hotspots.</p>
+        <div class="psm-chips"><span class="psm-chip">SQL Server</span><span class="psm-chip">Power BI</span><span class="psm-chip">Excel</span></div>
+        <a href="https://github.com/CHAMATHSARA-KDU/Greater-London-property-dashboard" target="_blank" class="psm-link">View →</a>
+      </div>
+
+      <div class="psm">
+        <div class="psm-idx">12</div>
+        <div class="psm-title">Canada Work Permit Holders Dashboard</div>
+        <p class="psm-desc">Analyzes TFWP & IMP immigration data (2018–2024) revealing top occupations, sector reliance on global talent, and post-pandemic recovery patterns.</p>
+        <div class="psm-chips"><span class="psm-chip">SQL Server</span><span class="psm-chip">Power BI</span><span class="psm-chip">DAX</span></div>
+        <a href="https://github.com/CHAMATHSARA-KDU/IMP-WORK-PERMIT-HOLDERS-IN-CANADA" target="_blank" class="psm-link">View →</a>
+      </div>
+
+      <div class="psm">
+        <div class="psm-idx">13</div>
+        <div class="psm-title">Western Australia Public Health Insights</div>
+        <p class="psm-desc">Public health dashboard visualizing low birth weight trends, alcohol-related risks, cancer incidences, fertility and stillbirth rates, and injury patterns using real-world data from data.gov.au.</p>
+        <div class="psm-chips"><span class="psm-chip">SQL</span><span class="psm-chip">Power BI</span><span class="psm-chip">DAX</span></div>
+        <a href="https://github.com/CHAMATHSARA-KDU/WESTERN-AUSTRALIA-PUBLIC-HEALTH-INSIGHTS" target="_blank" class="psm-link">View →</a>
+      </div>
+
+    </div><!-- /proj-sm-grid -->
+
+  </div><!-- /projects-inner -->
+</section>
+
+<!-- INK BLOB DIVIDER — projects to education -->
+<div class="ink-blob-divider" style="background:var(--black);">
+  <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 L1440,0 L1440,50 Q1370,120 1260,70 Q1150,20 1040,85 Q930,130 810,60 Q690,0 560,75 Q440,130 310,65 Q190,10 70,85 Q30,105 0,70 Z" fill="#f5f3ee"/>
+  </svg>
+</div>
+
+<!-- ════ EDUCATION ════ -->
+<section id="education" class="edu-section">
+  <div class="edu-inner">
+    <div class="sec-tag-dark sr" style="color:var(--muted2);">Education</div>
+    <h2 class="sec-title-xl-dark sr d1">Academic<br><em>Journey.</em></h2>
+    <div class="edu-card sr d2">
+      <div class="edu-year-big">2022</div>
+      <div>
+        <div class="edu-deg">BSc (Hons) Applied Data Science Communication</div>
+        <div class="edu-org">General Sir John Kotelawala Defence University</div>
+        <div class="edu-place">Colombo, Sri Lanka</div>
+      </div>
+      <div class="edu-status">● In Progress</div>
     </div>
- 
-    <div class="proj-sm reveal d2">
-      <div class="proj-sm-idx">07</div>
-      <div class="proj-sm-title">UK Study & Work Sponsorship Dashboard</div>
-      <p class="proj-sm-desc">Evidence-based public sector analytics applying SQL and Power BI to analyze UK sponsorship trends, supporting migration and education policy decisions.</p>
-      <div class="proj-sm-chips"><span>SQL Server</span><span>T-SQL</span><span>Power BI</span></div>
-      <a href="https://github.com/CHAMATHSARA-KDU/-UK-Study-Work-Sponsorship-Dashboard" target="_blank" class="proj-sm-link">View →</a>
-    </div>
- 
-    <div class="proj-sm reveal">
-      <div class="proj-sm-idx">08</div>
-      <div class="proj-sm-title">Airline Delay Analysis — Data Mining</div>
-      <p class="proj-sm-desc">K-Means Clustering in R to identify three airline clusters by delay performance using Dec 2019–2020 BTS data, surfacing key delay causes and scheduling patterns.</p>
-      <div class="proj-sm-chips"><span>R</span><span>K-Means</span><span>ggplot2</span></div>
-      <a href="https://github.com/CHAMATHSARA-KDU/AeroAI-Airline-Delay-Analysis-Using-Data-Mining" target="_blank" class="proj-sm-link">View →</a>
-    </div>
- 
-    <div class="proj-sm reveal d1">
-      <div class="proj-sm-idx">09</div>
-      <div class="proj-sm-title">PLANTRIGHT — Crop Recommendation</div>
-      <p class="proj-sm-desc">KNN-based crop recommendation system achieving 96% accuracy using soil nutrients and climate data, supporting sustainable and data-driven farming decisions.</p>
-      <div class="proj-sm-chips"><span>R</span><span>KNN</span><span>caret</span><span>ggplot2</span></div>
-      <a href="https://github.com/CHAMATHSARA-KDU/Plantright----From-Soil-to-Harvest" target="_blank" class="proj-sm-link">View →</a>
-    </div>
- 
-    <div class="proj-sm reveal d2">
-      <div class="proj-sm-idx">10</div>
-      <div class="proj-sm-title">Yorkshire & Humber Crime Trends</div>
-      <p class="proj-sm-desc">Interactive dashboard visualizing 2022–2023 crime trends across West, South, and North Yorkshire — identifying regional hotspots, crime types, and seasonal patterns.</p>
-      <div class="proj-sm-chips"><span>SQL Server</span><span>Power BI</span><span>Excel</span></div>
-      <a href="https://github.com/CHAMATHSARA-KDU/Yorkshire-and-Humber-Regional-Crime-" target="_blank" class="proj-sm-link">View →</a>
-    </div>
- 
-    <div class="proj-sm reveal">
-      <div class="proj-sm-idx">11</div>
-      <div class="proj-sm-title">Greater London Property Price Monitor</div>
-      <p class="proj-sm-desc">Analyzes 2020–2023 London property transaction data — uncovering price peaks, property type trends, seasonal patterns, and geographic hotspots.</p>
-      <div class="proj-sm-chips"><span>SQL Server</span><span>Power BI</span><span>Excel</span></div>
-      <a href="https://github.com/CHAMATHSARA-KDU/Greater-London-property-dashboard" target="_blank" class="proj-sm-link">View →</a>
-    </div>
- 
-    <div class="proj-sm reveal d1">
-      <div class="proj-sm-idx">12</div>
-      <div class="proj-sm-title">Canada Work Permit Holders Dashboard</div>
-      <p class="proj-sm-desc">Analyzes TFWP & IMP immigration data (2018–2024) revealing top occupations, sector reliance on global talent, and post-pandemic recovery patterns.</p>
-      <div class="proj-sm-chips"><span>SQL Server</span><span>Power BI</span><span>DAX</span></div>
-      <a href="https://github.com/CHAMATHSARA-KDU/IMP-WORK-PERMIT-HOLDERS-IN-CANADA" target="_blank" class="proj-sm-link">View →</a>
-    </div>
- 
-    <div class="proj-sm reveal d2">
-      <div class="proj-sm-idx">13</div>
-      <div class="proj-sm-title">Western Australia Public Health Insights</div>
-      <p class="proj-sm-desc">Public health dashboard visualizing low birth weight trends, alcohol-related risks, cancer incidences, fertility and stillbirth rates, and injury patterns using real-world data from data.gov.au.</p>
-      <div class="proj-sm-chips"><span>SQL</span><span>Power BI</span><span>DAX</span></div>
-      <a href="https://github.com/CHAMATHSARA-KDU/WESTERN-AUSTRALIA-PUBLIC-HEALTH-INSIGHTS" target="_blank" class="proj-sm-link">View →</a>
-    </div>
- 
   </div>
 </section>
+
+<!-- INK BLOB DIVIDER — education to certs -->
+<div class="ink-blob-divider" style="background:var(--white);">
+  <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,120 L1440,120 L1440,80 Q1350,0 1240,55 Q1130,100 1020,40 Q920,0 800,60 Q690,110 570,50 Q450,0 340,65 Q220,110 110,45 Q50,10 0,60 Z" fill="#0a0a0a"/>
+  </svg>
+</div>
 
 <!-- ════ CERTIFICATES ════ -->
 <section id="certificates" class="cert-section">
@@ -1118,7 +1331,7 @@ footer{
       <p class="contact-note">Whether it's a data analytics internship, or an exciting BI project — I'm always open to new challenges and interesting conversations.</p>
       <div class="contact-btns">
         <a href="mailto:chamathsaramarasingha@gmail.com" class="btn-black">Send a Message</a>
-        <a href="YOUR_CV_LINK_HERE" download class="btn-outline-dark">Download CV</a>
+        <a href="cv.pdf" download class="btn-outline-dark">Download CV</a>
       </div>
     </div>
     <div class="contact-links-col sr d2">
@@ -1206,7 +1419,7 @@ document.addEventListener('click',e=>{
   }
 });
 
-document.querySelectorAll('a,button,.pf,.pm,.sk,.cert-hero,.cert-sm,.cl-item').forEach(el=>{
+document.querySelectorAll('a,button,.pb,.psm,.sk,.cert-hero,.cert-sm,.cl-item').forEach(el=>{
   el.addEventListener('mouseenter',()=>{
     ringEl.style.width='54px'; ringEl.style.height='54px';
     ringEl.style.borderColor='rgba(200,240,58,.8)';
@@ -1217,17 +1430,14 @@ document.querySelectorAll('a,button,.pf,.pm,.sk,.cert-hero,.cert-sm,.cl-item').f
   });
 });
 
-/* ════ HERO CANVAS — DATA NODES ════ */
+/* ════ HERO CANVAS ════ */
 (()=>{
   const c=document.getElementById('hero-canvas');
   const ctx=c.getContext('2d');
   let W,H,nodes=[];
   let mouse={x:-999,y:-999};
 
-  function resize(){
-    W=c.width=c.offsetWidth;
-    H=c.height=c.offsetHeight;
-  }
+  function resize(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;}
   resize(); window.addEventListener('resize',resize);
 
   for(let i=0;i<80;i++) nodes.push({
@@ -1236,7 +1446,7 @@ document.querySelectorAll('a,button,.pf,.pm,.sk,.cert-hero,.cert-sm,.cl-item').f
     r:.8+Math.random()*1.8
   });
 
-  document.addEventListener('mousemove',e=>{ mouse.x=e.clientX; mouse.y=e.clientY; });
+  document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
 
   function frame(){
     ctx.clearRect(0,0,W,H);
@@ -1244,28 +1454,21 @@ document.querySelectorAll('a,button,.pf,.pm,.sk,.cert-hero,.cert-sm,.cl-item').f
       n.x+=n.vx; n.y+=n.vy;
       if(n.x<0||n.x>W)n.vx*=-1;
       if(n.y<0||n.y>H)n.vy*=-1;
-      const ddx=n.x-mouse.x, ddy=n.y-mouse.y;
+      const ddx=n.x-mouse.x,ddy=n.y-mouse.y;
       const dist=Math.sqrt(ddx*ddx+ddy*ddy);
       if(dist<100){const f=.35;n.vx+=ddx/dist*f;n.vy+=ddy/dist*f;}
-      // clamp speed
       const spd=Math.sqrt(n.vx*n.vx+n.vy*n.vy);
       if(spd>1.2){n.vx=(n.vx/spd)*1.2;n.vy=(n.vy/spd)*1.2;}
-      ctx.beginPath();
-      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
-      ctx.fillStyle='rgba(200,240,58,.55)';
-      ctx.fill();
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(200,240,58,.55)';ctx.fill();
     });
     for(let i=0;i<nodes.length;i++){
       for(let j=i+1;j<nodes.length;j++){
-        const ddx=nodes[i].x-nodes[j].x, ddy=nodes[i].y-nodes[j].y;
+        const ddx=nodes[i].x-nodes[j].x,ddy=nodes[i].y-nodes[j].y;
         const dist=Math.sqrt(ddx*ddx+ddy*ddy);
         if(dist<140){
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x,nodes[i].y);
-          ctx.lineTo(nodes[j].x,nodes[j].y);
-          ctx.strokeStyle=`rgba(200,240,58,${(1-dist/140)*.12})`;
-          ctx.lineWidth=.7;
-          ctx.stroke();
+          ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.strokeStyle=`rgba(200,240,58,${(1-dist/140)*.12})`;ctx.lineWidth=.7;ctx.stroke();
         }
       }
     }
@@ -1279,12 +1482,7 @@ document.querySelectorAll('a,button,.pf,.pm,.sk,.cert-hero,.cert-sm,.cl-item').f
   const el=document.getElementById('hero-typer');
   const txt='Chamathsara';
   let i=0;
-  function type(){
-    if(i<txt.length){
-      el.textContent=txt.slice(0,++i);
-      setTimeout(type,80+Math.random()*50);
-    }
-  }
+  function type(){if(i<txt.length){el.textContent=txt.slice(0,++i);setTimeout(type,80+Math.random()*50);}}
   setTimeout(type,500);
 })();
 
@@ -1304,7 +1502,7 @@ const navObs=new IntersectionObserver(entries=>{
     }
   });
 },{rootMargin:'-40% 0px -55% 0px'});
-document.querySelectorAll('section[id],[id]').forEach(s=>{
+document.querySelectorAll('section[id]').forEach(s=>{
   if(['about','skills','projects','education','certificates','contact'].includes(s.id))
     navObs.observe(s);
 });
